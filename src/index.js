@@ -14,9 +14,6 @@ app.use(bodyParser.json({
   limit: config.bodyLimit
 }))
 
-//config
-const port = 8000
-
 app.use("/api/v1/users", userController)
 
 //v1 routes
