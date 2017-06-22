@@ -20,6 +20,6 @@ app.use("/api/v1/users", userController)
 app.server.listen(config.port)
 console.log(`server listening on: ${app.server.address().port}`)
 
-mongoose.connect(config.mongoUrl)
+mongoose.connect(config.mongoUrlProd)
 
 export default app

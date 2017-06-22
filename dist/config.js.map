@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/config.js"],"names":[],"mappings":";;;;;kBAAe;AACb,UAAQ,IADK;AAEb,cAAY,wCAFC;AAGb,eAAa;AAHA,C","file":"config.js","sourcesContent":["export default {\n  \"port\": 8005,\n  \"mongoUrl\": \"mongodb://localhost:27017/MaxWatch-Api\",\n  \"bodyLimit\": \"100kb\"\n}\n"]}
