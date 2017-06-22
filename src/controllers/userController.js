@@ -8,6 +8,11 @@ router.post("/", (req, res) => {
   const newUser = new User()
   console.log(req.body)
   newUser.name = req.body.name
+  newUser.status = req.body.status
+  newUser.energyLevel = req.body.energyLevel
+  newUser.position.coordinates = req.body.position.coordinates
+  console.log(newUser.position.coordinates)
+
   newUser.save(err => {
     if(err){
       res.send(err)

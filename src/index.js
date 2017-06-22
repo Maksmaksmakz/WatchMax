@@ -17,7 +17,7 @@ app.use(bodyParser.json({
 //config
 const port = 8000
 
-app.use("/users", userController)
+app.use("/api/v1/users", userController)
 
 //v1 routes
 app.server.listen(config.port)
