@@ -44,7 +44,9 @@ app.use("/api/v1/users", _userController2.default);
 app.server.listen(_config2.default.port);
 console.log("server listening on: " + app.server.address().port);
 
-_mongoose2.default.connect(_config2.default.mongoUrlProd);
+_mongoose2.default.connect(_config2.default.mongoUrlProd, function (err) {
+  if (err) return console.error(err);
+});
 
 exports.default = app;
 //# sourceMappingURL=index.js.map
