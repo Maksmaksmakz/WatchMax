@@ -18,6 +18,7 @@ var router = _express2.default.Router();
 
 
 router.post("/", function (req, res) {
+  console.log("post request");
   var newUser = new _user2.default();
   console.log(req.body);
   newUser.name = req.body.name;
@@ -35,6 +36,7 @@ router.post("/", function (req, res) {
 });
 
 router.get("/", function (req, res) {
+  console.log("get request");
   _user2.default.find({}, function (err, users) {
     if (err) {
       res.status(500).send("Couldn get users Error: " + err);

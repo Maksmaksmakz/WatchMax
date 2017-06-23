@@ -5,6 +5,7 @@ import bodyParser from "body-parser"
 import User from "../models/user"
 
 router.post("/", (req, res) => {
+  console.log("post request")
   const newUser = new User()
   console.log(req.body)
   newUser.name = req.body.name
@@ -22,6 +23,7 @@ router.post("/", (req, res) => {
 })
 
 router.get("/", (req, res) => {
+  console.log("get request")
   User.find({}, (err, users) => {
     if(err){
       res.status(500).send(`Couldn get users Error: ${err}`)
