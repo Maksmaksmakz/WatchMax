@@ -17,15 +17,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 
 
+// POST "api/v1/user" - Create user
 router.post("/", function (req, res) {
-  console.log("post request");
+  console.log("post request to user");
   var newUser = new _user2.default();
-  console.log(req.body);
   newUser.name = req.body.name;
   newUser.status = req.body.status;
   newUser.energyLevel = req.body.energyLevel;
   newUser.position.coordinates = req.body.position.coordinates;
-  console.log(newUser.position.coordinates);
 
   newUser.save(function (err) {
     if (err) {
@@ -35,6 +34,7 @@ router.post("/", function (req, res) {
   });
 });
 
+// GET "api/v1/user" - Get users
 router.get("/", function (req, res) {
   console.log("get request");
   _user2.default.find({}, function (err, users) {
@@ -43,6 +43,37 @@ router.get("/", function (req, res) {
       return;
     }
     res.json(users);
+  });
+});
+
+// GET "api/v1/user/status" - Get users status
+router.get("/:id/status", function (req, res) {
+  console.log("get request");
+  _user2.default.findById(req.params.id, function (err, user) {
+    if (err) {
+      res.status(500).send("Couldn find user Error: " + err);
+      return;
+    }
+    res.json(user.status);
+  });
+});
+
+// PUT "api/v1/user" - Update user
+router.put("/:id", function (req, res) {
+  _user2.default.findById(req.params.id, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    user.name = req.body.name;
+    user.status = req.body.status;
+    user.energyLevel = req.body.energyLevel;
+    user.position.coordinates = req.body.position.coordinates;
+    user.save(function (err) {
+      if (err) {
+        res.send(err);
+      }
+      res.json({ message: "User updated" });
+    });
   });
 });
 

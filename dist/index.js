@@ -28,6 +28,10 @@ var _userController = require("./controllers/userController");
 
 var _userController2 = _interopRequireDefault(_userController);
 
+var _metaDataController = require("./controllers/metaDataController");
+
+var _metaDataController2 = _interopRequireDefault(_metaDataController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -39,12 +43,13 @@ app.use(_bodyParser2.default.json({
 }));
 
 app.use("/api/v1/users", _userController2.default);
+app.use("/api/v1/metaData", _metaDataController2.default);
 
 //v1 routes
 app.server.listen(_config2.default.port);
 console.log("server listening on: " + app.server.address().port);
 
-_mongoose2.default.connect(_config2.default.mongoUrlProd, function (err) {
+_mongoose2.default.connect(_config2.default.mongoUrlDev, function (err) {
   if (err) return console.error(err);
 });
 

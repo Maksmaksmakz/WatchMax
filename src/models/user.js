@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 const UserSchema = new mongoose.Schema({
   name: String,
+  type: String,
   status: String,
   energyLevel: Number,
   position: {
@@ -12,6 +13,5 @@ const UserSchema = new mongoose.Schema({
     }
   }
 })
-mongoose.model("User", UserSchema)
 
-module.exports = mongoose.model("User")
+module.exports = mongoose.model("User", UserSchema)

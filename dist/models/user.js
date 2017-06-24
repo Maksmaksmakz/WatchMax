@@ -8,6 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var UserSchema = new _mongoose2.default.Schema({
   name: String,
+  type: String,
   status: String,
   energyLevel: Number,
   position: {
@@ -18,7 +19,6 @@ var UserSchema = new _mongoose2.default.Schema({
     }
   }
 });
-_mongoose2.default.model("User", UserSchema);
 
-module.exports = _mongoose2.default.model("User");
+module.exports = _mongoose2.default.model("User", UserSchema);
 //# sourceMappingURL=user.js.map
