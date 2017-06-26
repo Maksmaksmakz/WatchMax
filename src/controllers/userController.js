@@ -53,7 +53,8 @@ router.put("/position", (req, res) => {
         res.send(err)
       }
       let user = users[0]
-      user.position.coordinates = req.body.coordinates;
+      user.position.coordinates.long = req.body.coordinates.long;
+      user.position.coordinates.lat = req.body.coordinates.lat;
       user.save(err => {
         if(err){
           res.send(err)

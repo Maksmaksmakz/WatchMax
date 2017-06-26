@@ -66,7 +66,8 @@ router.put("/position", function (req, res) {
       res.send(err);
     }
     var user = users[0];
-    user.position.coordinates = req.body.coordinates;
+    user.position.coordinates.long = req.body.coordinates.long;
+    user.position.coordinates.lat = req.body.coordinates.lat;
     user.save(function (err) {
       if (err) {
         res.send(err);
