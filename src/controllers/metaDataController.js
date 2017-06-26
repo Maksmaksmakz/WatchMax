@@ -4,12 +4,13 @@ import bodyParser from "body-parser"
 
 import MetaData from "../models/metaData"
 
+// POST "api/v1/metaData" - Create metaData
 router.post("/", (req, res) => {
   console.log("post request to metaData")
   const newMetaData = new MetaData()
   newMetaData.version = req.body.version
   newMetaData.downloadLink = req.body.downloadLink
-  newMetaData.forceMetaData = req.body.forceMetaData
+  newMetaData.forceUpdate = req.body.forceUpdate
 
   MetaData.find({}, (err, metaData) => {
     if(err){
@@ -29,15 +30,18 @@ router.post("/", (req, res) => {
     }
   })
 })
-
-router.put("/:id", (req, res) => {
-    MetaData.findById(req.params.id, (err, metaData) => {
+// PUT "api/v1/metaData" - Update MetaData
+router.put("/", (req, res) => {
+  console.log("put request to metaData")
+    MetaData.find({}, (err, metaDatas) => {
       if(err) {
         res.send(err)
       }
+      console.log(metaDatas[0])
+      metadata = metadatas[0]
       metaData.version = req.body.version
       metaData.downloadLink = req.body.downloadLink
-      metaData.forceMetaData = req.body.forceMetaData
+      metaData.forceUpdate = req.body.forceUpdate
       metaData.save(err => {
         if(err){
           res.send(err)
@@ -46,15 +50,16 @@ router.put("/:id", (req, res) => {
       })
     })
   })
-
+})
+// GET "api/v1/metaData" - GetMetaData
 router.get("/", (req, res) => {
-  console.log("get request")
+  console.log("get request to metaData")
   MetaData.find({}, (err, metaDatas) => {
     if(err){
       res.status(500).send(`Couldn get users Error: ${err}`)
       return
     }
-    res.json(metaDatas)
+    res.json(metaDatas[0])
   })
 })
 
