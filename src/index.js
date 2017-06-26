@@ -22,7 +22,7 @@ app.use("/api/v1/metaData", metaDataController)
 app.server.listen(config.port)
 console.log(`server listening on: ${app.server.address().port}`)
 
-mongoose.connect(config.mongoUrlDev, (err) => {
+mongoose.connect(config.mongoUrlProd, (err) => {
     if (err)
         return console.error(err);
 });
