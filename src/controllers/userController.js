@@ -45,6 +45,24 @@ router.get("/:id/status", (req, res) => {
   })
 })
 
+//PUT "/api/v1/user/position"
+router.put("/position", (req, res) => {
+  console.log("put request to user")
+    User.find({}, (err, users) => {
+      if(err) {
+        res.send(err)
+      }
+      let user = users[0]
+      user.position.coordinates = req.body.coordinates;
+      user.save(err => {
+        if(err){
+          res.send(err)
+        }
+        res.json({ message: "User updated" })
+      })
+  })
+})
+
 // PUT "api/v1/user" - Update user
 router.put("/:id", (req, res) => {
     User.findById(req.params.id, (err, user) => {
@@ -63,5 +81,4 @@ router.put("/:id", (req, res) => {
       })
     })
   })
-
 module.exports = router
