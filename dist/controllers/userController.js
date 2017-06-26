@@ -58,6 +58,24 @@ router.get("/:id/status", function (req, res) {
   });
 });
 
+//PUT "/api/v1/user/position"
+router.put("/position", function (req, res) {
+  console.log("put request to user");
+  _user2.default.find({}, function (err, users) {
+    if (err) {
+      res.send(err);
+    }
+    var user = users[0];
+    user.position.coordinates = req.body.coordinates;
+    user.save(function (err) {
+      if (err) {
+        res.send(err);
+      }
+      res.json({ message: "User updated" });
+    });
+  });
+});
+
 // PUT "api/v1/user" - Update user
 router.put("/:id", function (req, res) {
   _user2.default.findById(req.params.id, function (err, user) {
@@ -76,6 +94,5 @@ router.put("/:id", function (req, res) {
     });
   });
 });
-
 module.exports = router;
 //# sourceMappingURL=userController.js.map

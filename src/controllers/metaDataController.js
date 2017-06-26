@@ -46,8 +46,7 @@ router.put("/", (req, res) => {
         if(err){
           res.send(err)
         }
-        res.json({ message: "metaData updated" })
-      })
+      res.json({ message: "metaData updated" })
     })
   })
 })

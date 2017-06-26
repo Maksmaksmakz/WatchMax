@@ -49,7 +49,7 @@ app.use("/api/v1/metaData", _metaDataController2.default);
 app.server.listen(_config2.default.port);
 console.log("server listening on: " + app.server.address().port);
 
-_mongoose2.default.connect(_config2.default.mongoUrlDev, function (err) {
+_mongoose2.default.connect(_config2.default.mongoUrlProd, function (err) {
   if (err) return console.error(err);
 });
 

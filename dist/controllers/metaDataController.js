@@ -17,12 +17,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 
 
+// POST "api/v1/metaData" - Create metaData
 router.post("/", function (req, res) {
   console.log("post request to metaData");
   var newMetaData = new _metaData2.default();
   newMetaData.version = req.body.version;
   newMetaData.downloadLink = req.body.downloadLink;
-  newMetaData.forceMetaData = req.body.forceMetaData;
+  newMetaData.forceUpdate = req.body.forceUpdate;
 
   _metaData2.default.find({}, function (err, metaData) {
     if (err) {
@@ -42,15 +43,18 @@ router.post("/", function (req, res) {
     }
   });
 });
-
-router.put("/:id", function (req, res) {
-  _metaData2.default.findById(req.params.id, function (err, metaData) {
+// PUT "api/v1/metaData" - Update MetaData
+router.put("/", function (req, res) {
+  console.log("put request to metaData");
+  _metaData2.default.find({}, function (err, metaDatas) {
     if (err) {
       res.send(err);
     }
+    console.log(metaDatas[0]);
+    metadata = metadatas[0];
     metaData.version = req.body.version;
     metaData.downloadLink = req.body.downloadLink;
-    metaData.forceMetaData = req.body.forceMetaData;
+    metaData.forceUpdate = req.body.forceUpdate;
     metaData.save(function (err) {
       if (err) {
         res.send(err);
@@ -59,15 +63,15 @@ router.put("/:id", function (req, res) {
     });
   });
 });
-
+// GET "api/v1/metaData" - GetMetaData
 router.get("/", function (req, res) {
-  console.log("get request");
+  console.log("get request to metaData");
   _metaData2.default.find({}, function (err, metaDatas) {
     if (err) {
       res.status(500).send("Couldn get users Error: " + err);
       return;
     }
-    res.json(metaDatas);
+    res.json(metaDatas[0]);
   });
 });
 
