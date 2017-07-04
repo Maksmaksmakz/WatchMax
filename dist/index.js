@@ -32,6 +32,10 @@ var _metaDataController = require("./controllers/metaDataController");
 
 var _metaDataController2 = _interopRequireDefault(_metaDataController);
 
+var _fcmTokenController = require("./controllers/fcmTokenController");
+
+var _fcmTokenController2 = _interopRequireDefault(_fcmTokenController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -44,6 +48,7 @@ app.use(_bodyParser2.default.json({
 
 app.use("/api/v1/users", _userController2.default);
 app.use("/api/v1/metaData", _metaDataController2.default);
+app.use("/api/v1/firebaseToken", _fcmTokenController2.default);
 
 //v1 routes
 app.server.listen(_config2.default.port);

@@ -3,6 +3,7 @@ const router = express.Router()
 import bodyParser from "body-parser"
 
 import User from "../models/user"
+import { pushToAllDevices } from "../fcm/fcmManager"
 
 // POST "api/v1/user" - Create user
 router.post("/", (req, res) => {
@@ -60,6 +61,16 @@ router.put("/position", (req, res) => {
           res.send(err)
         }
         res.json({ message: "User updated" })
+        pushToAllDevices(
+          {
+            "bla" : "Max",
+            "test" : "ist toll"
+          },
+          {
+            title : "Max ist jetzt woanders",
+            body : "Max hat seine Position aktualisiert",
+          }
+        )
       })
   })
 })

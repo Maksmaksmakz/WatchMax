@@ -12,6 +12,8 @@ var _user = require("../models/user");
 
 var _user2 = _interopRequireDefault(_user);
 
+var _fcmManager = require("../fcm/fcmManager");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
@@ -73,6 +75,13 @@ router.put("/position", function (req, res) {
         res.send(err);
       }
       res.json({ message: "User updated" });
+      (0, _fcmManager.pushToAllDevices)({
+        "bla": "Max",
+        "test": "ist toll"
+      }, {
+        title: "Max ist jetzt woanders",
+        body: "Max hat seine Position aktualisiert"
+      });
     });
   });
 });

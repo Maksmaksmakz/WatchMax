@@ -6,6 +6,7 @@ import mongoose from "mongoose"
 import config from "./config"
 import userController from "./controllers/userController"
 import metaDataController from "./controllers/metaDataController"
+import fcmTokenController from "./controllers/fcmTokenController"
 
 const app = express()
 app.server = http.createServer(app)
@@ -17,6 +18,7 @@ app.use(bodyParser.json({
 
 app.use("/api/v1/users", userController)
 app.use("/api/v1/metaData", metaDataController)
+app.use("/api/v1/firebaseToken", fcmTokenController)
 
 //v1 routes
 app.server.listen(config.port)
