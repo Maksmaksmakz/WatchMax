@@ -11,7 +11,8 @@ const UserSchema = new mongoose.Schema({
       lat: Number,
       long: Number
     }
-  }
+  },
+  messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}]
 })
 
 module.exports = mongoose.model("User", UserSchema)

@@ -12,6 +12,10 @@ var _user = require("../models/user");
 
 var _user2 = _interopRequireDefault(_user);
 
+var _message = require("../models/message");
+
+var _message2 = _interopRequireDefault(_message);
+
 var _fcmManager = require("../fcm/fcmManager");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -83,6 +87,54 @@ router.put("/position", function (req, res) {
         body: "Max hat seine Position aktualisiert"
       });
     });
+  });
+});
+
+// PUT "api/v1/user/message" - addNew Message
+router.post("/message", function (req, res) {
+  console.log("post request to messages");
+  _user2.default.find({}, function (err, users) {
+    if (err) {
+      res.send(err);
+    }
+    var user = users[0];
+    var newMessage = new _message2.default();
+    console.log(req.body);
+    newMessage.text = req.body.message.text;
+    console.log(newMessage);
+    newMessage.save(function (err, review) {
+      if (err) {
+        res.send(err);
+      }
+      user.messages.push(newMessage);
+      console.log("user.messages: " + user.messages);
+      user.save(function (err) {
+        if (err) {
+          res.send(err);
+        }
+        res.json({ newMessage: "new Message saved" });
+        (0, _fcmManager.pushToAllDevices)({
+          "bla": "Max",
+          "test": "ist toll"
+        }, {
+          title: "Max hat was gepostet",
+          body: "Max hat einen Neuen Status gepostet"
+        });
+      });
+    });
+  });
+});
+
+// PUT "api/v1/user/messages" - get all Messages
+router.get("/messages", function (req, res) {
+  console.log("get request to messages");
+  _message2.default.find({}, function (err, messages) {
+    if (err) {
+      res.status(500).send("Couldn get messages Error: " + err);
+      return;
+    }
+    console.log(messages);
+    res.json(messages);
   });
 });
 

@@ -34,7 +34,7 @@ exports.pushToDevice = function (deviceToken, data, notification) {
 
   fcm.send(message, function (err, response) {
     if (err) {
-      console.log("Something has gone wrong!");
+      console.log("Something has gone wrong! ", err);
     } else {
       console.log("Successfully sent with response: ", response);
     }

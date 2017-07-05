@@ -3,6 +3,7 @@ const router = express.Router()
 import bodyParser from "body-parser"
 
 import User from "../models/user"
+import Message from "../models/message"
 import { pushToAllDevices } from "../fcm/fcmManager"
 
 // POST "api/v1/user" - Create user
@@ -74,6 +75,58 @@ router.put("/position", (req, res) => {
       })
   })
 })
+
+// PUT "api/v1/user/message" - addNew Message
+router.post("/message", (req, res) => {
+  console.log("post request to messages")
+    User.find({}, (err, users) => {
+      if(err) {
+        res.send(err)
+      }
+      let user = users[0]
+      let newMessage = new Message
+      console.log(req.body)
+      newMessage.text = req.body.message.text;
+      console.log(newMessage)
+      newMessage.save((err, review) => {
+        if(err){
+          res.send(err)
+        }
+        user.messages.push(newMessage)
+        console.log("user.messages: " + user.messages)
+        user.save(err => {
+          if(err){
+            res.send(err)
+          }
+          res.json({newMessage:"new Message saved"})
+          pushToAllDevices(
+            {
+              "bla" : "Max",
+              "test" : "ist toll"
+            },
+            {
+              title : "Max hat was gepostet",
+              body : "Max hat einen Neuen Status gepostet",
+            }
+          )
+        })
+      })
+  })
+})
+
+// PUT "api/v1/user/messages" - get all Messages
+router.get("/messages", (req, res) => {
+  console.log("get request to messages")
+  Message.find({}, (err, messages) => {
+    if(err){
+      res.status(500).send(`Couldn get messages Error: ${err}`)
+      return
+    }
+    console.log(messages)
+    res.json(messages)
+  })
+})
+
 
 // PUT "api/v1/user" - Update user
 router.put("/:id", (req, res) => {

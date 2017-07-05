@@ -50,8 +50,16 @@ router.put("/", function (req, res) {
     if (err) {
       res.send(err);
     }
-    console.log(metaDatas[0]);
     metadata = metadatas[0];
+    if (metaData.version < req.body.version) {
+      pushToAllDevices({
+        "bla": "Max",
+        "test": "ist toll"
+      }, {
+        title: "Max ist fleißig",
+        body: "Max hat eine neue Version hochgeladen."
+      });
+    }
     metaData.version = req.body.version;
     metaData.downloadLink = req.body.downloadLink;
     metaData.forceUpdate = req.body.forceUpdate;
