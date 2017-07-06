@@ -24,6 +24,7 @@ exports.pushToAllDevices = (title, text) => {
     title : title,
     body : text,
     color: "#83c3ed",
+    ledColor: [238, 4, 99, 1],
     sound: "default",
     icon: "ic_stat_name"
   }
