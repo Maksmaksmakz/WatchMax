@@ -12,6 +12,8 @@ var _metaData = require("../models/metaData");
 
 var _metaData2 = _interopRequireDefault(_metaData);
 
+var _fcmManager = require("../fcm/fcmManager");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
@@ -50,9 +52,10 @@ router.put("/", function (req, res) {
     if (err) {
       res.send(err);
     }
-    metadata = metadatas[0];
+    console.log(metaDatas);
+    var metaData = metaDatas[0];
     if (metaData.version < req.body.version) {
-      pushToAllDevices({
+      (0, _fcmManager.pushToAllDevices)({
         "bla": "Max",
         "test": "ist toll"
       }, {

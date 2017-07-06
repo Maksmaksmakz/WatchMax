@@ -3,6 +3,7 @@ const router = express.Router()
 import bodyParser from "body-parser"
 
 import MetaData from "../models/metaData"
+import { pushToAllDevices } from "../fcm/fcmManager"
 
 // POST "api/v1/metaData" - Create metaData
 router.post("/", (req, res) => {
@@ -37,7 +38,8 @@ router.put("/", (req, res) => {
       if(err) {
         res.send(err)
       }
-      metadata = metadatas[0]
+      console.log(metaDatas)
+      const metaData = metaDatas[0]
       if(metaData.version < req.body.version) {
         pushToAllDevices(
           {
