@@ -79,13 +79,7 @@ router.put("/position", function (req, res) {
         res.send(err);
       }
       res.json({ message: "User updated" });
-      (0, _fcmManager.pushToAllDevices)({
-        "bla": "Max",
-        "test": "ist toll"
-      }, {
-        title: "Max ist jetzt woanders",
-        body: "Max hat seine Position aktualisiert"
-      });
+      (0, _fcmManager.pushToAllDevices)("Max ist jetzt woanders", "Max hat seine Position aktualisiert");
     });
   });
 });
@@ -113,13 +107,7 @@ router.post("/message", function (req, res) {
           res.send(err);
         }
         res.json({ newMessage: "new Message saved" });
-        (0, _fcmManager.pushToAllDevices)({
-          "bla": "Max",
-          "test": "ist toll"
-        }, {
-          title: "Max hat was gepostet",
-          body: "Max hat einen Neuen Status gepostet"
-        });
+        (0, _fcmManager.pushToAllDevices)("Max hat was gepostet", "Max hat einen Neuen Status gepostet");
       });
     });
   });

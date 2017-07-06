@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _http = require("http");
@@ -43,7 +43,7 @@ app.server = _http2.default.createServer(app);
 
 //middleware
 app.use(_bodyParser2.default.json({
-  limit: _config2.default.bodyLimit
+    limit: _config2.default.bodyLimit
 }));
 
 app.use("/api/v1/users", _userController2.default);
@@ -54,8 +54,11 @@ app.use("/api/v1/firebaseToken", _fcmTokenController2.default);
 app.server.listen(_config2.default.port);
 console.log("server listening on: " + app.server.address().port);
 
-_mongoose2.default.connect(_config2.default.mongoUrlProd, function (err) {
-  if (err) return console.error(err);
+var url = process.env.NODE_ENV === "development" ? _config2.default.mongoUrlDev : _config2.default.mongoUrlProd;
+
+_mongoose2.default.connect(url, function (err) {
+    if (err) return console.error(err);
+    console.log("mongoose connected to " + url);
 });
 
 exports.default = app;

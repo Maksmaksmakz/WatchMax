@@ -55,13 +55,7 @@ router.put("/", function (req, res) {
     console.log(metaDatas);
     var metaData = metaDatas[0];
     if (metaData.version < req.body.version) {
-      (0, _fcmManager.pushToAllDevices)({
-        "bla": "Max",
-        "test": "ist toll"
-      }, {
-        title: "Max ist fleißig",
-        body: "Max hat eine neue Version hochgeladen."
-      });
+      (0, _fcmManager.pushToAllDevices)("Max ist fleißig", "Max hat eine neue Version hochgeladen.");
     }
     metaData.version = req.body.version;
     metaData.downloadLink = req.body.downloadLink;

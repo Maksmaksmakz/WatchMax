@@ -13,11 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var serverKey = "AAAAhQuHNyQ:APA91bE0qmLVwog39G1ixRLblEEBaXcJBu2htcp0uN6w3N9vKO2OhKO7qrjcmqC7kmqHYsAbDF9RcSWdXpk03vEO4wPXPeUBAG9MU510N3bM6ugeBSazhNcXKZW8UTCCE57AA4UKW8Sw";
 var fcm = new _fcmPush2.default(serverKey);
 
-exports.pushToDevice = function (deviceToken, data, notification) {
+exports.pushToDevice = function (deviceToken, notification) {
   var message = {
     to: deviceToken,
-    collapse_key: '<insert-collapse-key>',
-    data: data,
     notification: notification
   };
 
@@ -30,7 +28,15 @@ exports.pushToDevice = function (deviceToken, data, notification) {
   });
 };
 
-exports.pushToAllDevices = function (data, notification) {
+exports.pushToAllDevices = function (title, text) {
+  var notification = {
+    title: title,
+    body: text,
+    color: "#83c3ed",
+    sound: "default",
+    icon: "ic_stat_name"
+  };
+
   _fcmToken2.default.find({}, function (err, tokens) {
     if (err) {
       res.status(500).send("Couldnt find and send to all devices " + err);
@@ -39,7 +45,7 @@ exports.pushToAllDevices = function (data, notification) {
       console.log("found tokens, sending notifications now");
       tokens.forEach(function (token) {
         console.log("sent notification to: " + token.token);
-        exports.pushToDevice(token.token, data, notification);
+        exports.pushToDevice(token.token, notification);
       });
     }
   });

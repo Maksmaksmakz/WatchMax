@@ -42,14 +42,8 @@ router.put("/", (req, res) => {
       const metaData = metaDatas[0]
       if(metaData.version < req.body.version) {
         pushToAllDevices(
-          {
-            "bla" : "Max",
-            "test" : "ist toll"
-          },
-          {
-            title : "Max ist fleißig",
-            body : "Max hat eine neue Version hochgeladen.",
-          }
+            "Max ist fleißig",
+            "Max hat eine neue Version hochgeladen."
         )
       }
       metaData.version = req.body.version

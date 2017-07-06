@@ -24,9 +24,12 @@ app.use("/api/v1/firebaseToken", fcmTokenController)
 app.server.listen(config.port)
 console.log(`server listening on: ${app.server.address().port}`)
 
-mongoose.connect(config.mongoUrlProd, (err) => {
+const url = process.env.NODE_ENV === "development" ? config.mongoUrlDev : config.mongoUrlProd
+
+mongoose.connect(url, (err) => {
     if (err)
         return console.error(err);
+    console.log(`mongoose connected to ${url}`)
 });
 
 export default app

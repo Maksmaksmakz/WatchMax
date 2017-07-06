@@ -4,11 +4,9 @@ import FCM from "fcm-push"
 const serverKey = "AAAAhQuHNyQ:APA91bE0qmLVwog39G1ixRLblEEBaXcJBu2htcp0uN6w3N9vKO2OhKO7qrjcmqC7kmqHYsAbDF9RcSWdXpk03vEO4wPXPeUBAG9MU510N3bM6ugeBSazhNcXKZW8UTCCE57AA4UKW8Sw"
 const fcm = new FCM(serverKey)
 
-exports.pushToDevice = (deviceToken, data, notification) => {
+exports.pushToDevice = (deviceToken, notification) => {
   var message = {
       to : deviceToken,
-      collapse_key : '<insert-collapse-key>',
-      data : data,
       notification : notification
   };
 
@@ -21,7 +19,15 @@ exports.pushToDevice = (deviceToken, data, notification) => {
   });
 }
 
-exports.pushToAllDevices = (data, notification) => {
+exports.pushToAllDevices = (title, text) => {
+  const notification = {
+    title : title,
+    body : text,
+    color: "#83c3ed",
+    sound: "default",
+    icon: "ic_stat_name"
+  }
+
   FcmToken.find({}, (err, tokens) => {
     if(err){
       res.status(500).send(`Couldnt find and send to all devices ${err}`)
@@ -30,7 +36,7 @@ exports.pushToAllDevices = (data, notification) => {
       console.log(`found tokens, sending notifications now`)
       tokens.forEach(function (token) {
         console.log(`sent notification to: ${token.token}`)
-        exports.pushToDevice(token.token, data, notification)
+        exports.pushToDevice(token.token, notification)
       });
     }
   })

@@ -63,15 +63,9 @@ router.put("/position", (req, res) => {
         }
         res.json({ message: "User updated" })
         pushToAllDevices(
-          {
-            "bla" : "Max",
-            "test" : "ist toll"
-          },
-          {
-            title : "Max ist jetzt woanders",
-            body : "Max hat seine Position aktualisiert",
-          }
-        )
+            "Max ist jetzt woanders",
+            "Max hat seine Position aktualisiert"
+          )
       })
   })
 })
@@ -100,19 +94,13 @@ router.post("/message", (req, res) => {
           }
           res.json({newMessage:"new Message saved"})
           pushToAllDevices(
-            {
-              "bla" : "Max",
-              "test" : "ist toll"
-            },
-            {
-              title : "Max hat was gepostet",
-              body : "Max hat einen Neuen Status gepostet",
-            }
+              "Max hat was gepostet",
+              "Max hat einen Neuen Status gepostet"
           )
         })
       })
+    })
   })
-})
 
 // PUT "api/v1/user/messages" - get all Messages
 router.get("/messages", (req, res) => {
